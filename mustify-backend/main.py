@@ -1,9 +1,8 @@
 """ main.py  where fast api stuff is created  """
 
 from fastapi import FastAPI
-from dbutils import create_db_and_tables, SessionDep
-from models.song_info import SongInfo
-
+from app.dbutils import create_db_and_tables, SessionDep
+from app.models.song_info import SongInfo
 app = FastAPI()
 
 
