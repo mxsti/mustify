@@ -1,3 +1,5 @@
+""" main.py for where fast api stuff is created  """
+
 from fastapi import FastAPI
 
 app = FastAPI()
