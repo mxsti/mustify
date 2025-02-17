@@ -1,0 +1,12 @@
+@if (this.playingSong) {
+  <audio controls>
+    <source [src]="currentSong" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+} @else {
+  <div *ngFor="let songInfo of songsInfo">
+    <p (click)="playSong(songInfo.filename)">{{ songInfo.title }}</p>
+  </div>
+}
+
+
