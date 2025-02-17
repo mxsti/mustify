@@ -3,9 +3,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from sqlmodel import select
 from app.dbutils import create_db_and_tables, SessionDep
 from app.models.song_info import SongInfo
-from sqlmodel import select
 
 app = FastAPI()
 app.mount("/songfiles", StaticFiles(directory="audiofiles"), name="audio")
