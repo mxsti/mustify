@@ -14,3 +14,4 @@ class SongInfo(SQLModel, table=True):
     genre: str
     year: int
     duration: int
+    filename: str = Field(unique=True, nullable=False)

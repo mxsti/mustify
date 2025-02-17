@@ -1,9 +1,22 @@
 """ main.py  where fast api stuff is created  """
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from app.dbutils import create_db_and_tables, SessionDep
 from app.models.song_info import SongInfo
+from sqlmodel import select
+
 app = FastAPI()
+app.mount("/songfiles", StaticFiles(directory="audiofiles"), name="audio")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:59553"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.on_event("startup")
@@ -21,8 +34,18 @@ def hello():
     return {"message": "Hello World"}
 
 
-@app.post("/song/")
-def create_hero(song: SongInfo, session: SessionDep) -> SongInfo:
+@app.get("/songs/")
+def get_songs(session: SessionDep) -> list[SongInfo]:
+    """
+    get all songs in the database
+    :returns a list of all songs
+    """
+    songs = session.exec(select(SongInfo)).all()
+    return songs
+
+
+@app.post("/songs/")
+def create_song(song: SongInfo, session: SessionDep) -> SongInfo:
     """
     create a new song in the database
     :returns the created song
