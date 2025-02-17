@@ -1,6 +1,7 @@
 """ data model for the metadata for a song  """
 
 from sqlmodel import SQLModel, Field
+from typing import Optional
 
 
 class SongInfo(SQLModel, table=True):
@@ -9,9 +10,9 @@ class SongInfo(SQLModel, table=True):
     """
     id: int | None = Field(default=None, primary_key=True)
     title: str
-    artist: str
-    album: str
-    genre: str
-    year: int
-    duration: int
     filename: str = Field(unique=True, nullable=False)
+    artist: Optional[str] = None
+    album: Optional[str] = None
+    genre: Optional[str] = None
+    year: Optional[int] = None
+    duration: Optional[int] = None
